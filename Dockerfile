@@ -95,8 +95,9 @@ RUN set -x && \
 #    curl --compressed -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | bash -x 1>&2 && \
 #    curl --compressed -s -k https://planeboston.com/deploy-s6-overlay.sh | bash -x 1>&2 && \
 #
-curl -k -o /tmp/deploy-s6-overlay.sh https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh && \
-bash -x -c "S6OVERLAY_VERSION="v2.2.0.3" /tmp/deploy-s6-overlay.sh" && \
+curl -k -o /root/deploy-s6-overlay.sh https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh && \
+chmod a+x /root/deploy-s6-overlay.sh && \
+bash -x -c 'S6OVERLAY_VERSION=v2.2.0.3 /root/deploy-s6-overlay.sh' && \
 
 
 # Clean up
