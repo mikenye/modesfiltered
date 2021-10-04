@@ -34,20 +34,17 @@ RUN set -x && \
     KEPT_PACKAGES+=(wget) && \
     KEPT_PACKAGES+=(gnupg2) && \
     KEPT_PACKAGES+=(libatomic1) && \
+    KEPT_PACKAGES+=(adoptopenjdk-8-hotspot-jre) && \
 #    KEPT_PIP_PACKAGES+=() && \
 #    KEPT_RUBY_PACKAGES+=() && \
 # keep the TEMP package names around so we can uninstall them later:
     echo ${TEMP_PACKAGES[*]} > /tmp/vars.tmp && \
 #
 # Install all the KEPT packages (+ pkgconfig):
-    apt-get update && \
-    apt-get install -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -o Dpkg::Options::="--force-confold" -y --no-install-recommends  --no-install-suggests\
-    pkg-config ${KEPT_PACKAGES[@]} && \
-
     wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
     add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ && \
-    apt-get update && apt-get install -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -o Dpkg::Options::="--force-confold" -y --no-install-recommends  --no-install-suggests\
-    adoptopenjdk-8-hotspot-jre && \
+    apt-get install -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -o Dpkg::Options::="--force-confold" -y --no-install-recommends  --no-install-suggests\
+    pkg-config ${KEPT_PACKAGES[@]} && \
 #
 # Add the following if you have PIP or GEM packages to install:
 #    pip install ${KEPT_PIP_PACKAGES[@]} && \
@@ -69,7 +66,7 @@ RUN set -x && \
 # pulling the script from the interwebs
     wget https://www.live-military-mode-s.eu/Rpi/modesfiltered.zip && \
 # and extract it
-    unzip modesfiltered.zip -d /home/pi/modesfiltered && \
+    unzip -o modesfiltered.zip -d /home/pi/modesfiltered && \
 # Backup blacklist, whitelist and callsigns
     cp /home/pi/modesfiltered/blacklist.txt /home/pi/modesfiltered/blacklist.install && \
     cp /home/pi/modesfiltered/whitelist.txt /home/pi/modesfiltered/whitelist.install && \
