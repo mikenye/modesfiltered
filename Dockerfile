@@ -104,7 +104,7 @@ bash -x -c 'S6OVERLAY_VERSION=v2.2.0.3 /tmp/deploy-s6-overlay.sh' && \
 # Clean up
     TEMP_PACKAGES="$(</tmp/vars.tmp)" && \
     echo Uninstalling $TEMP_PACKAGES && \
-    apt-get remove -y $TEMP_PACKAGES && \
+    #apt-get remove -y $TEMP_PACKAGES && \
     apt-get autoremove -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -y && \
     apt-get clean -y && \
     rm -rf \
