@@ -98,7 +98,7 @@ RUN set -x && \
 #apt-get remove -y gnupg2 && \
 curl -L -k -o /tmp/deploy-s6-overlay.sh https://planeboston.com/deploy-s6-overlay.sh && \
 chmod a+x /tmp/deploy-s6-overlay.sh && \
-bash -x -c 'S6OVERLAY_VERSION=v2.2.0.3 /tmp/deploy-s6-overlay.sh' && \
+bash -x -c 'S6OVERLAY_VERSION=v2.2.0.3 /tmp/deploy-s6-overlay.sh' 2>&1 && \
 
 
 # Clean up
