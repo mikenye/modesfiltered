@@ -93,14 +93,14 @@ RUN set -x && \
     echo "alias nano=\"nano -l\"" >> /root/.bashrc && \
 #
 # install S6 Overlay
-#    curl --compressed -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | bash -x 1>&2 && \
+curl --compressed -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | bash -x 1>&2 && \
 #    curl --compressed -s -k https://planeboston.com/deploy-s6-overlay.sh | bash -x 1>&2 && \
 #
 #apt-get remove -y gnupg2 && \
-curl -L -k -o /tmp/deploy-s6-overlay.sh https://planeboston.com/deploy-s6-overlay.sh && \
-chmod a+x /tmp/deploy-s6-overlay.sh && \
+#curl -L -k -o /tmp/deploy-s6-overlay.sh https://planeboston.com/deploy-s6-overlay.sh && \
+#chmod a+x /tmp/deploy-s6-overlay.sh && \
 #bash -x -c 'S6OVERLAY_VERSION=v2.2.0.3 /tmp/deploy-s6-overlay.sh' 2>&1 && \
-bash -x -c '/tmp/deploy-s6-overlay.sh' 2>&1 && \
+#bash -x -c '/tmp/deploy-s6-overlay.sh' 2>&1 && \
 
 
 # Clean up
