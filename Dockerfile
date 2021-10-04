@@ -92,7 +92,7 @@ RUN set -x && \
     echo "alias nano=\"nano -l\"" >> /root/.bashrc && \
 #
 # install S6 Overlay
-    curl --compressed -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh -x && \
+    curl --compressed -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | bash -x && \
 #
 # Clean up
     TEMP_PACKAGES="$(</tmp/vars.tmp)" && \
