@@ -26,10 +26,10 @@ cp -P /etc/ssl/certs/*.crt ./root_certs/etc/ssl/certs
 cp -P /etc/ssl/certs/*.pem ./root_certs/etc/ssl/certs
 cp -P /usr/share/ca-certificates/mozilla/*.crt ./root_certs/usr/share/ca-certificates/mozilla
 
-echo "$(git branch --show-current)_($(git rev-parse --short HEAD))_$(date +%y-%m-%d-%T%Z)" > rootfs/root/branch
+#echo "$(git branch --show-current)_($(git rev-parse --short HEAD))_$(date +%y-%m-%d-%T%Z)" > rootfs/root/branch
 
 #DOCKER_BUILDKIT=1 docker buildx build --progress=plain --compress --push $2 --platform $PLATFORMS --tag kx1t/planefence:$TAG .
 # local build only:
 DOCKER_BUILDKIT=1 docker buildx build --progress=plain --compress $2 --tag kx1t/modesfiltered:$TAG --load .
-rm -rf ./root_certs ./rootfs/root/branch
+rm -rf ./root_certs ./rootfs/root
 popd
