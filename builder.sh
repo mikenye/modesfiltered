@@ -7,7 +7,7 @@ set -x
 
 [[ "$BRANCH" == "main" ]] && TAG="latest" || TAG="$BRANCH"
 
-PLATFORMS=linux/armhf,linux/arm64,linux/amd64,linux/386
+PLATFORMS=linux/armhf,linux/arm64,linux/amd64
 #PLATFORMS=linux/armhf,linux/arm64
 
 # rebuild the container
