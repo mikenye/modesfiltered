@@ -1,4 +1,4 @@
-FROM debian:buster-20210902-slim
+FROM debian:buster-20210927-slim
 
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
@@ -43,7 +43,7 @@ RUN set -x && \
     apt-get update && \
     apt-get install -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -o Dpkg::Options::="--force-confold" -y --no-install-recommends  --no-install-suggests\
     pkg-config ${KEPT_PACKAGES[@]} && \
-    
+
     wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
     add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ && \
     apt-get update && apt-get install -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -o Dpkg::Options::="--force-confold" -y --no-install-recommends  --no-install-suggests\
