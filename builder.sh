@@ -20,6 +20,7 @@ git pull
 #ls -la /etc/ssl/certs/
 mkdir -p ./root_certs/etc/ssl/certs
 mkdir -p ./root_certs/usr/share/ca-certificates/mozilla
+mkdir -p ./rootfs/root
 
 cp -P /etc/ssl/certs/*.crt ./root_certs/etc/ssl/certs
 cp -P /etc/ssl/certs/*.pem ./root_certs/etc/ssl/certs
