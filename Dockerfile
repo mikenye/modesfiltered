@@ -9,11 +9,11 @@ RUN apt-get update && apt-get install -o APT::Autoremove::RecommendsImportant=0 
 RUN set -x && \
 # define packages needed for installation and general management of the container:
     TEMP_PACKAGES=() && \
-    KEPT_PACKAGES=(software-properties-common) && \
+    KEPT_PACKAGES=() && \
     KEPT_PIP_PACKAGES=() && \
     KEPT_RUBY_PACKAGES=() && \
 # Required for building multiple packages.
-    TEMP_PACKAGES+=(pkg-config) && \
+    KEPT_PACKAGES+=(pkg-config) && \
     TEMP_PACKAGES+=(git) && \
 # logging:
     KEPT_PACKAGES+=(gawk) && \
@@ -21,30 +21,30 @@ RUN set -x && \
 # required for S6 overlay
 # curl kept for healthcheck
 # ca-certificates kept for python
-    TEMP_PACKAGES+=(gnupg2) && \
     TEMP_PACKAGES+=(file) && \
     KEPT_PACKAGES+=(curl) && \
-    KEPT_PACKAGES+=(ca-certificates) && \
 # a few KEPT_PACKAGES for debugging - they can be removed in the future
     KEPT_PACKAGES+=(psmisc procps nano) && \
 #
 # add your own packages here between the (), repeat lines for each added package:
-#    KEPT_PACKAGES+=(openjdk-8-jre) && \
     KEPT_PACKAGES+=(unzip) && \
     KEPT_PACKAGES+=(wget) && \
     KEPT_PACKAGES+=(gnupg2) && \
     KEPT_PACKAGES+=(libatomic1) && \
-    KEPT_PACKAGES+=(adoptopenjdk-8-hotspot-jre) && \
 #    KEPT_PIP_PACKAGES+=() && \
 #    KEPT_RUBY_PACKAGES+=() && \
 # keep the TEMP package names around so we can uninstall them later:
     echo ${TEMP_PACKAGES[*]} > /tmp/vars.tmp && \
 #
-# Install all the KEPT packages (+ pkgconfig):
+# Install all the KEPT packages:
+    apt-get update && \
+    apt-get install -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -o Dpkg::Options::="--force-confold" -y --no-install-recommends  --no-install-suggests\
+        ${KEPT_PACKAGES[@]} && \
+
     wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
     add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ && \
-    apt-get install -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -o Dpkg::Options::="--force-confold" -y --no-install-recommends  --no-install-suggests\
-    pkg-config ${KEPT_PACKAGES[@]} && \
+    apt-get update && apt-get install -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -o Dpkg::Options::="--force-confold" -y --no-install-recommends  --no-install-suggests\
+    adoptopenjdk-8-hotspot-jre && \
 #
 # Add the following if you have PIP or GEM packages to install:
 #    pip install ${KEPT_PIP_PACKAGES[@]} && \
