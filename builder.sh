@@ -29,6 +29,6 @@ echo "$(git branch --show-current)_($(git rev-parse --short HEAD))_$(date +%y-%m
 
 #DOCKER_BUILDKIT=1 docker buildx build --progress=plain --compress --push $2 --platform $PLATFORMS --tag kx1t/planefence:$TAG .
 # local build only:
-DOCKER_BUILDKIT=1 docker buildx build --progress=plain --compress $2 --platform $PLATFORMS --tag kx1t/modesfiltered:$TAG .
+DOCKER_BUILDKIT=1 docker buildx build --local --progress=plain --compress $2 --platform $PLATFORMS --tag kx1t/modesfiltered:$TAG .
 rm -rf ./root_certs ./rootfs/root/branch
 popd
