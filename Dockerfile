@@ -93,9 +93,9 @@ RUN set -x && \
 #
 # install S6 Overlay
 #    curl --compressed -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | bash -x 1>&2 && \
-#    curl --compressed -s https://planeboston.com/deploy-s6-overlay.sh | bash -x 1>&2 && \
+#    curl --compressed -s -k https://planeboston.com/deploy-s6-overlay.sh | bash -x 1>&2 && \
 #
-curl -o /tmp/deploy-s6-overlay.sh https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh && \
+curl -k -o /tmp/deploy-s6-overlay.sh https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh && \
 bash -x /tmp/deploy-s6-overlay.sh && \
 
 
