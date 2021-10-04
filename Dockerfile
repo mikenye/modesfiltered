@@ -4,7 +4,8 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-COPY root_certs/ /
+#COPY root_certs/ /
+RUN apt-get --no-install-recommends install -y ca-certificates
 
 RUN set -x && \
 # define packages needed for installation and general management of the container:
