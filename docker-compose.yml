@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   modesfiltered:
-    image: kx1t/modesfiltered:dev-kx1t
+    image: rhodan76/modesfiltered:dev
     tty: true
     container_name: modesfiltered
     hostname: modesfiltered
