@@ -64,6 +64,7 @@ RUN set -x && \
 # Create Directories for modesfiltered
     mkdir -p /home/pi/modesfiltered && \
 # pulling the script from the interwebs
+    pushd /tmp && \
     wget https://www.live-military-mode-s.eu/Rpi/modesfiltered.zip && \
 # and extract it
     unzip -o modesfiltered.zip -d /home/pi/modesfiltered && \
@@ -71,9 +72,9 @@ RUN set -x && \
     cp /home/pi/modesfiltered/blacklist.txt /home/pi/modesfiltered/blacklist.install && \
     cp /home/pi/modesfiltered/whitelist.txt /home/pi/modesfiltered/whitelist.install && \
     cp /home/pi/modesfiltered/callsigns.txt /home/pi/modesfiltered/callsigns.install && \
+    popd && \
 # the rest is done my the modes run script
-
-
+#
 # If you need to clone any GIT repos, do it like this:
 #   mkdir -p git && \
 #   pushd git && \
@@ -83,12 +84,25 @@ RUN set -x && \
 #   popd && \
 #   If there are multiple repos, copy & repeat the lines between "pushd myrepo" and "popd"
 #   popd && \
-
+#
 # This is useful while debugging your container:
     echo "alias dir=\"ls -alsv\"" >> /root/.bashrc && \
     echo "alias nano=\"nano -l\"" >> /root/.bashrc && \
 #
-# install S6 Overlay
+# Install @Mikenye's HealthCheck framework (https://github.com/mikenye/docker-healthchecks-framework)
+    mkdir -p /opt && \
+    git clone \
+          --depth=1 \
+          https://github.com/mikenye/docker-healthchecks-framework.git \
+          /opt/healthchecks-framework \
+          && \
+    rm -rf \
+      /opt/healthchecks-framework/.git* \
+      /opt/healthchecks-framework/*.md \
+      /opt/healthchecks-framework/tests \
+      && \
+#
+# Install S6 Overlay
     curl --compressed -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
 #
 # Clean up
@@ -106,4 +120,5 @@ RUN set -x && \
 
 ENTRYPOINT [ "/init" ]
 
-# Add any ports you want to expose by default. If none are needed, you can leave out the EXPOSE command:
+# Add healthcheck
+HEALTHCHECK --start-period=60s --interval=600s CMD /home/healthcheck/healthcheck.sh
